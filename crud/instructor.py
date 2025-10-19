@@ -32,5 +32,6 @@ class InstructorsRepository:
         return result.modified_count > 0
 
     def delete_by_code(self, instructor_code: str) -> bool:
+        #TODO: delete other course and enrollment
         result = self.collection.delete_one({"instructor_code": instructor_code})
         return result.deleted_count > 0

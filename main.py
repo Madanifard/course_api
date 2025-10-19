@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from contextlib import asynccontextmanager
 from database import MongoDBManager
 from routers import instructor
+from routers import course
 
 
 @asynccontextmanager
@@ -23,4 +24,5 @@ app = FastAPI(title="Course API Service", lifespan=lifespan)
 def read_root():
     return {"Hello": "World"}
 
-app.include_router(instructor.router, prefix="/instrictor", tags=["instrictors"])
+app.include_router(instructor.router, prefix="/instructor", tags=["instructors"])
+app.include_router(course.router, prefix="/course", tags=["courses"])
