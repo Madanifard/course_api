@@ -1,15 +1,24 @@
-from typing import Union
-
 from fastapi import FastAPI
+from contextlib import asynccontextmanager
+from database import MongoDBManager
 
-app = FastAPI()
 
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # startup logic
+    MongoDBManager()
+    MongoDBManager.setup()
+    print("✅ MongoDB connected and initialized")
+
+    yield
+
+    # shutdown logic
+    MongoDBManager.close()
+    print("❌ MongoDB connection closed.")
+    
+app = FastAPI(title="Course API Service", lifespan=lifespan)
 
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
-
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
