@@ -1,5 +1,4 @@
 from typing import List, Optional
-from bson import ObjectId
 from database import MongoDBManager
 
 
@@ -17,13 +16,13 @@ class EnrollmentRepository:
         })
         return str(result.inserted_id)
     
-    def get_all(self):
+    def get_all(self) -> List[dict]:
         return list(self.collection.find({}, {"_id": 0}))
     
-    def get_by_student_code(self, student_code: str):
+    def get_by_student_code(self, student_code: str) -> Optional[dict]:
         return self.collection.find_one({"student_code": student_code}, {"_id": 0})
     
-    def get_by_course_code(self, course_code: str):
+    def get_by_course_code(self, course_code: str) -> Optional[dict]:
         return self.collection.find_one({"course_code": course_code}, {"_id": 0})
     
     def delete_by_code(self, enrolle_code: str) -> bool:

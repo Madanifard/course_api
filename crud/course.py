@@ -1,5 +1,4 @@
 from typing import List, Optional
-from bson import ObjectId
 from database import MongoDBManager
 
 
@@ -33,6 +32,5 @@ class CourseRepository:
         return result.modified_count > 0
 
     def delete_by_code(self, course_code: str) -> bool:
-        #TODO: delete other enrollment
         result = self.collection.delete_one({"course_code": course_code})
         return result.deleted_count > 0
