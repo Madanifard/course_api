@@ -4,6 +4,7 @@ from database import MongoDBManager
 from routers import instructor
 from routers import course
 from routers import student
+from routers import enrollment
 
 
 @asynccontextmanager
@@ -28,3 +29,4 @@ def read_root():
 app.include_router(instructor.router, prefix="/instructor", tags=["instructors"])
 app.include_router(course.router, prefix="/course", tags=["courses"])
 app.include_router(student.router, prefix="/student", tags=["student"])
+app.include_router(enrollment.router,  prefix="/enrollment", tags=["enrollment"])
